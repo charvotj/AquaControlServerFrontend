@@ -8,12 +8,12 @@ RUN dotnet restore
 
 # Copy the remaining source code and build the application
 COPY . .
-RUN dotnet publish -c production -o /app --artifacts-path /app --no-restore
+RUN dotnet publish -c production --no-restore
 
 # Build the runtime image
 FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS runtime
 WORKDIR /app
-COPY --from=build /app .
+COPY --from=build /source/bin/production/net6.0 .
 
 ENV ASPNETCORE_ENVIRONMENT=Development
 
