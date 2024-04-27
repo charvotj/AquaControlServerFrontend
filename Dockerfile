@@ -17,4 +17,4 @@ COPY --from=build /app .
 
 ENV ASPNETCORE_ENVIRONMENT=Development
 
-ENTRYPOINT ["dotnet", "wwwroot/_framework/_bin/AquaControlServerFrontend.dllAquaControlServerFrontend.dll"]
+ENTRYPOINT ["dotnet", "wwwroot/_framework/_bin/AquaControlServerFrontend.dll"]
