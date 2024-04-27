@@ -43,3 +43,5 @@ obj
 
 .vscode
 .vs
+*.sln
+*.gz
