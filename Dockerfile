@@ -1,5 +1,5 @@
 # Use the .NET 6 SDK image as the base image
-FROM mcr.microsoft.com/dotnet/core/sdk:3.2 AS build
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS build
 WORKDIR /source
 
 # Copy the project file and restore dependencies
