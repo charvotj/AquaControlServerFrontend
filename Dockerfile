@@ -1,20 +1,19 @@
-# Use the .NET 6 SDK image as the base image
-FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
-WORKDIR /source
-
-# Copy the project file and restore dependencies
-COPY *.csproj .
-RUN dotnet restore
-
-# Copy the remaining source code and build the application
-COPY . .
-RUN dotnet publish -c production --no-restore
-
-# Build the runtime image
-FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS runtime
+FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
 WORKDIR /app
-COPY --from=build /source/bin/production/net6.0 .
+EXPOSE 80
+EXPOSE 443
 
-ENV ASPNETCORE_ENVIRONMENT=Development
+FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
+WORKDIR /src
+COPY ["AquaControlServerFrontend.csproj", "."]
+RUN dotnet restore "AquaControlServerFrontend.csproj"
+COPY . .
+RUN dotnet build "AquaControlServerFrontend.csproj" -c Release -o /app/build
 
+FROM build AS publish
+RUN dotnet publish "AquaControlServerFrontend.csproj" -c Release -o /app/publish
+
+FROM base AS final
+WORKDIR /app
+COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "AquaControlServerFrontend.dll"]
