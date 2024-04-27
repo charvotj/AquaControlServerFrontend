@@ -1,20 +1,19 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace AquaControlServerFrontend.Models.Account
+namespace AquaControlServerFrontend.Models.Account;
+
+public class AddUser
 {
-    public class AddUser
-    {
-        [Required]
-        public string FirstName { get; set; }
+    [Required]
+    public string FirstName { get; set; }
 
-        [Required]
-        public string LastName { get; set; }
+    [Required]
+    public string LastName { get; set; }
 
-        [Required]
-        public string Username { get; set; }
+    [Required]
+    public string Username { get; set; }
 
-        [Required]
-        [MinLength(6, ErrorMessage = "The Password field must be a minimum of 6 characters")]
-        public string Password { get; set; }
-    }
+    [Required]
+    [MinLength(6, ErrorMessage = "The Password field must be a minimum of 6 characters")]
+    public string Password { get; set; }
 }
